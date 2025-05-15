@@ -46,6 +46,7 @@ study.login.session
 │       ├── BaseResponse.java
 │       ├── BaseResponseService.java
 │       └── BaseResponseStatus.java
+```
 
 ## DB 테이블 구조
 
