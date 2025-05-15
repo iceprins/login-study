@@ -65,18 +65,18 @@ study.login.session
 
 ```json
 {
-	"email": "test@example.com",
-	"password": "1234",
-	"name": "홍길동"
+    "email": "test@example.com",
+    "password": "1234",
+    "name": "홍길동"
 }
 ```
 
 - Response
 ```json
 {
-	"isSuccess": true,
-	"code": 200,
-	"message": "회원가입 성공",
-	"data": null
+    "isSuccess": true,
+    "code": 200,
+    "message": "회원가입 성공",
+    "data": null
 }
 ```
