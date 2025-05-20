@@ -2,6 +2,7 @@ package study.login.session.service;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import study.login.session.domain.Users;
 import study.login.session.domain.dto.UserLoginRequest;
@@ -13,22 +14,28 @@ import study.login.session.repository.UserRepository;
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final EncryptionService encryptionService;
 
     public void register(UserSignupRequest request) {
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+
         Users users = Users.builder()
-                .email(request.getEmail())
-                .password(request.getPassword())
-                .name(request.getName())
+                .email(encryptionService.encrypt(request.getEmail()))
+                .password(encodedPassword)
+                .name(encryptionService.encrypt(request.getName()))
                 .build();
         userRepository.save(users);
     }
 
     public UserLoginResponse login(UserLoginRequest request, HttpSession session) {
-        return userRepository.findUsersByEmail(request.getEmail())
-                .filter(users -> users.getPassword().equals(request.getPassword()))
+        return userRepository.findUsersByEmail(encryptionService.encrypt(request.getEmail()))
+                .filter(users -> passwordEncoder.matches(request.getPassword(), users.getPassword()))
                 .map(users -> {
                     session.setAttribute("userId", users.getId());
-                    return new UserLoginResponse(users.getName(), users.getEmail());
+                    return new UserLoginResponse(
+                            encryptionService.decrypt(users.getName()), encryptionService.decrypt(users.getEmail())
+                    );
                 })
                 .orElse(null);
     }
@@ -38,6 +45,6 @@ public class AuthService {
     }
 
     public boolean isDuplicated(String email) {
-        return userRepository.findUsersByEmail(email).isPresent();
+        return userRepository.findUsersByEmail(encryptionService.encrypt(email)).isPresent();
     }
 }

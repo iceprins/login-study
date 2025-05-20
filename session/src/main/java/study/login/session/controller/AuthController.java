@@ -27,7 +27,7 @@ public class AuthController {
             throw new BaseException(ErrorCode.CONFLICT_MEMBER);
         }
         authService.register(request);
-        return BaseResponseService.success(BaseResponseStatus.SUCCESS_LOGIN);
+        return BaseResponseService.success(BaseResponseStatus.SUCCESS_SIGNUP);
     }
 
     @PostMapping("/login")
