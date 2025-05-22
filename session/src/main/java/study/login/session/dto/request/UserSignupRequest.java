@@ -1,4 +1,4 @@
-package study.login.session.domain.dto;
+package study.login.session.dto.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;

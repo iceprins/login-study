@@ -4,14 +4,14 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import study.login.session.domain.dto.UserLoginRequest;
-import study.login.session.domain.dto.UserLoginResponse;
-import study.login.session.domain.dto.UserSignupRequest;
-import study.login.session.global.exception.BaseException;
-import study.login.session.global.exception.ErrorCode;
-import study.login.session.global.response.BaseResponse;
-import study.login.session.global.response.BaseResponseService;
-import study.login.session.global.response.BaseResponseStatus;
+import study.login.session.dto.request.UserLoginRequest;
+import study.login.session.dto.response.UserLoginResponse;
+import study.login.session.dto.request.UserSignupRequest;
+import study.login.session.common.exception.BaseException;
+import study.login.session.common.exception.ErrorCode;
+import study.login.session.common.response.BaseResponse;
+import study.login.session.common.response.BaseResponseService;
+import study.login.session.common.response.BaseResponseStatus;
 import study.login.session.service.AuthService;
 
 @Slf4j

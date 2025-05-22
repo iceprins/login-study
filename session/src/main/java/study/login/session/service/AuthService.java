@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import study.login.session.domain.Users;
-import study.login.session.domain.dto.UserLoginRequest;
-import study.login.session.domain.dto.UserLoginResponse;
-import study.login.session.domain.dto.UserSignupRequest;
+import study.login.session.dto.request.UserLoginRequest;
+import study.login.session.dto.response.UserLoginResponse;
+import study.login.session.dto.request.UserSignupRequest;
 import study.login.session.repository.UserRepository;
 
 @Service

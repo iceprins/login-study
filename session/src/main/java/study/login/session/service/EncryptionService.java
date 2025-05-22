@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import study.login.session.global.exception.EncryptionException;
+import study.login.session.common.exception.EncryptionException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

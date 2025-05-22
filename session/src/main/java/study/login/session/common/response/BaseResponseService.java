@@ -1,4 +1,4 @@
-package study.login.session.global.response;
+package study.login.session.common.response;
 
 public class BaseResponseService {
 

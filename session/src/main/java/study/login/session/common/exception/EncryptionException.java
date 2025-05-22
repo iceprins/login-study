@@ -1,4 +1,4 @@
-package study.login.session.global.exception;
+package study.login.session.common.exception;
 
 public class EncryptionException extends BaseException {
 

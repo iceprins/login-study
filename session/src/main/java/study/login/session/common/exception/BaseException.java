@@ -1,7 +1,6 @@
-package study.login.session.global.exception;
+package study.login.session.common.exception;
 
 import lombok.Getter;
-import study.login.session.global.exception.ErrorCode;
 
 @Getter
 public class BaseException extends RuntimeException {
