@@ -1,4 +1,4 @@
-package study.login.session.dto.response;
+package study.login.session.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

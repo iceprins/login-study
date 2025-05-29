@@ -1,18 +1,16 @@
-package study.login.session.controller;
+package study.login.session.user.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import study.login.session.dto.request.UserLoginRequest;
-import study.login.session.dto.response.UserLoginResponse;
-import study.login.session.dto.request.UserSignupRequest;
-import study.login.session.common.exception.BaseException;
-import study.login.session.common.exception.ErrorCode;
+import study.login.session.user.dto.request.UserLoginRequest;
+import study.login.session.user.dto.response.UserLoginResponse;
+import study.login.session.user.dto.request.UserSignupRequest;
 import study.login.session.common.response.BaseResponse;
 import study.login.session.common.response.BaseResponseService;
 import study.login.session.common.response.BaseResponseStatus;
-import study.login.session.service.AuthService;
+import study.login.session.user.service.AuthService;
 
 @Slf4j
 @RestController
@@ -23,9 +21,6 @@ public class AuthController {
 
     @PostMapping("/signup")
     public BaseResponse<Object> signup(@RequestBody UserSignupRequest request) {
-        if (authService.isDuplicated(request.getEmail())) {
-            throw new BaseException(ErrorCode.CONFLICT_MEMBER);
-        }
         authService.register(request);
         return BaseResponseService.success(BaseResponseStatus.SUCCESS_SIGNUP);
     }
@@ -33,10 +28,7 @@ public class AuthController {
     @PostMapping("/login")
     public BaseResponse<Object> login(@RequestBody UserLoginRequest request, HttpSession session) {
         UserLoginResponse res = authService.login(request, session);
-        if (res != null) {
-            return BaseResponseService.success(BaseResponseStatus.SUCCESS_LOGIN, res);
-        }
-        throw new BaseException(ErrorCode.UNAUTHORIZED_MEMBER);
+        return BaseResponseService.success(BaseResponseStatus.SUCCESS_LOGIN, res);
     }
 
     @PostMapping("/logout")
@@ -47,10 +39,7 @@ public class AuthController {
 
     @GetMapping("/me")
     public BaseResponse<Object> getCurrentUser(HttpSession session) {
-        Object userId = session.getAttribute("userId");
-        if (userId == null) {
-            throw new BaseException(ErrorCode.UNAUTHORIZED_MEMBER);
-        }
-        return BaseResponseService.success(BaseResponseStatus.SUCCESS_GET_LOGIN_USER);
+        UserLoginResponse currentUser = authService.getCurrentUser();
+        return BaseResponseService.success(BaseResponseStatus.SUCCESS_GET_LOGIN_USER, currentUser);
     }
 }

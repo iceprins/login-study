@@ -1,7 +1,6 @@
-package study.login.session.service;
+package study.login.session.common.crypto;
 
 import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import study.login.session.common.exception.EncryptionException;
@@ -12,9 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 @Component
-@RequiredArgsConstructor
-public class EncryptionService {
-
+public class AesEncryptor {
     @Value("${encryption.key}")
     private String key;
 
@@ -30,11 +27,11 @@ public class EncryptionService {
         ivSpec = new IvParameterSpec(iv.getBytes());
     }
 
-    public String encrypt(String plainText) {
+    public String encrypt(String plain) {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
-            byte[] encrypted = cipher.doFinal(plainText.getBytes("UTF-8"));
+            byte[] encrypted = cipher.doFinal(plain.getBytes("UTF-8"));
             return Base64.getEncoder().encodeToString(encrypted);
         } catch (Exception e) {
             throw new EncryptionException();
